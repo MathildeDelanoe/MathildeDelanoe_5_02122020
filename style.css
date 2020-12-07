@@ -1,13 +1,14 @@
-header,footer
+body{
+    background-color: rgb(255,198,159);
+}
+
+header, footer
 {
     background-color:rgb(255,166,106);
-
 }
 
-section
-{
-    background-color:rgb(255,198,159);
-}
+
+
 
 @media screen and (max-width: 991px) {
     header li
