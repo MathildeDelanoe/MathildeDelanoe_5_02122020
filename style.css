@@ -1,19 +1,21 @@
-/* body
-{
-    background-color:rgb(239,228,176);
-} */
-
 header,footer
 {
-    /* background-color:rgb(227,209,121); */
     background-color:rgb(255,166,106);
 
 }
 
 section
 {
-    /* background-color:rgb(239,228,176); */
     background-color:rgb(255,198,159);
 }
 
-
+@media screen and (max-width: 991px) {
+    header li
+    {   
+        border-top:1px solid;
+        padding-left:5px;
+    }
+    header ul{
+        margin-top:10px;
+    }
+}
