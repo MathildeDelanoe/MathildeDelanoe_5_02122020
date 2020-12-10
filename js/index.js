@@ -4,9 +4,34 @@ const BOOTSTRAP_COLUMNS_PER_PRODUCT = BOOTSTRAP_COLUMNS_NUMBER / PRODUCTS_NUMBER
 
 function addToCatalogue(product)
 {
-    var createdColumn = document.createElement("div");
-    createdColumn.classList.add("col"); // Creation de la colonne avec une classe "col"
-    return createdColumn;
+    let column = document.createElement("div");
+    // Creation de la colonne avec une classe "col" + elements responsives + margin
+    column.classList.add("col", "col-12", "col-lg-" + BOOTSTRAP_COLUMNS_PER_PRODUCT, "my-2");
+    let card = document.createElement("div");
+    card.classList.add("card"); // Creation de la colonne avec une classe "card"
+    let cardImg = document.createElement("img");
+    cardImg.classList.add("card-img-top"); // Creation de la colonne avec une classe "card-img-top"
+    cardImg.setAttribute("src", product.imageUrl);
+    cardImg.setAttribute("alt", "Picture of " + product.name);
+    let cardBody = document.createElement("div");
+    cardBody.classList.add("card-body"); // Creation de la colonne avec une classe "card-body"
+    let productName = document.createElement("h3");
+    productName.classList.add("card-title");
+    productName.innerHTML = product.name;
+    let productDescription = document.createElement("p");
+    productDescription.classList.add("card-text");
+    productDescription.innerHTML = product.description;
+    let productPrice= document.createElement("p");
+    productPrice.classList.add("text-right","font-weight-bold");
+    productPrice.innerHTML = product.price;
+
+    column.appendChild(card);
+    card.appendChild(cardImg);
+    card.appendChild(cardBody);
+    cardBody.appendChild(productName);
+    cardBody.appendChild(productDescription);
+    cardBody.appendChild(productPrice);
+    return column;
 }
 
 function fillCatalogue(productsTable)
