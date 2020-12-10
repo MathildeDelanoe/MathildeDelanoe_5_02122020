@@ -23,7 +23,7 @@ function addToCatalogue(product)
     productDescription.innerHTML = product.description;
     let productPrice= document.createElement("p");
     productPrice.classList.add("text-right","font-weight-bold");
-    productPrice.innerHTML = product.price;
+    productPrice.innerHTML = priceToEuros(product.price);
 
     column.appendChild(card);
     card.appendChild(cardImg);
