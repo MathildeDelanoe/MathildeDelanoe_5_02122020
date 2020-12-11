@@ -16,7 +16,7 @@
 
     <header>
         <nav class="navbar navbar-expand-lg navbar-light">
-            <img src="img/logo.png" alt="logo orinoco" class="pr-1"/>
+            <i class="fas fa-shopping-cart fa-lg pr-1"></i>
             <a class="navbar-brand" href="index.html">Orinoco</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" >
                 <span class="navbar-toggler-icon"></span>
@@ -36,6 +36,26 @@
 
     <section>
         <h1 class="text-center">Produit sélectionné</h1>
+
+        <div class="container-fluid container_produit">
+            <div class="card">
+                <img>
+                <div class="card-body">
+                    <h3 class="card-title">Nom</h3>
+                    <p class="card-text">Description</p>
+                    <label for="couleurSelection">Choisissez une couleur :</label>
+                    <select name="couleur" id="couleurSelection" required>
+                        <option value="">--</option>
+                    </select>
+                    <p class="text-right font-weight-bold">15€</p>
+                    <button type="button">Ajouter au panier button</button>
+                </div>
+            </div>
+        </div>  
+        
+
+
+
     </section>
 
     <footer class="py-3 mt-3">
@@ -50,7 +70,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    
+    <script src="js/produit.js"></script>
   </body>
 
 </html>

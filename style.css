@@ -22,6 +22,10 @@ section img{
     width:80%;
 }
 
+.container_produit{
+    width: 30%;
+}
+
 @media screen and (max-width: 1024px) {
     section img{
         height: 200px;
