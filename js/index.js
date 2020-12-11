@@ -24,6 +24,9 @@ function addToCatalogue(product)
     let productPrice= document.createElement("p");
     productPrice.classList.add("text-right","font-weight-bold");
     productPrice.innerHTML = priceToEuros(product.price);
+    let cardLink = document.createElement("a");
+    cardLink.classList.add("stretched-link");
+    cardLink.setAttribute("href", "produit.html?id=" + product._id);
 
     column.appendChild(card);
     card.appendChild(cardImg);
@@ -31,6 +34,7 @@ function addToCatalogue(product)
     cardBody.appendChild(productName);
     cardBody.appendChild(productDescription);
     cardBody.appendChild(productPrice);
+    cardBody.appendChild(cardLink);
     return column;
 }
 
