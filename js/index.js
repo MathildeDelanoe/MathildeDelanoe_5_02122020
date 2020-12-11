@@ -54,6 +54,9 @@ function fillCatalogue(productsTable)
         currentRow.appendChild(currentColumn);
         productsCounter++;
     }
+
+    let lastRow = document.querySelectorAll("div.container-fluid div.row");
+    lastRow[lastRow.length-1].classList.add("mb-3"); // Ajouter une margin sur la derniere ligne
 }
 
 // Interrogation du serveur via une requete HTTP en utilisant l'API fetch

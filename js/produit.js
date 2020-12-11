@@ -26,6 +26,19 @@ function fillProductSheet(product)
     price.innerHTML = priceToEuros(product.price);
 }
 
+// Cette fonction ajoute l'élément selectionné au panier
+function addToBasket()
+{
+    let objectToBasket = {
+        id : getIdFromUrl(),
+        name : document.querySelector("div.card-body h3").innerHTML,
+        selection : document.getElementById("colorSelection").value,
+        price : priceToCentsString(document.querySelector("div.card-body p.price").innerHTML),
+        image : document.querySelector("div.card img").getAttribute("src")
+    };
+    localStorage.setItem("objet" + (localStorage.length + 1), JSON.stringify(objectToBasket));
+}
+
 // Interrogation du serveur via une requete HTTP en utilisant l'API fetch
 fetch("http://localhost:3000/api/teddies/" + getIdFromUrl())
 .then(function(response)
@@ -41,7 +54,13 @@ fetch("http://localhost:3000/api/teddies/" + getIdFromUrl())
 })
 .then(function(response)
 {
-    console.log(response);
     fillProductSheet(response);
 })
 .catch(error => console.log("Erreur : " + error))
+
+//Ecoute du clic sur le bouton d'ajout au panier
+const btn = document.querySelector("div.card-body button");
+btn.addEventListener("click", function()
+{
+    addToBasket();
+});

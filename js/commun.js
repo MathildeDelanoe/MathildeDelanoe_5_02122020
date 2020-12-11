@@ -6,3 +6,8 @@ function priceToEuros(centsPrice)
     priceString = centsPrice.toString();
     return (priceString.substring(0, priceString.length-2)  + '.' + priceString.slice(-2) + "€");
 }
+
+function priceToCentsString(stringPrice)
+{
+    return Number(stringPrice.slice(0, -1)) * 100;
+}
