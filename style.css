@@ -13,7 +13,22 @@ footer
     width:100%;
 }
 
+section img{
+    border: 1px solid;
+    height: 350px;
+}
 
+.container-fluid{
+    width:80%;
+}
+
+@media screen and (max-width: 1024px) {
+    section img{
+        height: 200px;
+    }
+}
+
+/* -md */
 @media screen and (max-width: 991px) {
     header li
     {   
@@ -22,5 +37,23 @@ footer
     }
     header ul{
         margin-top:10px;
+    }
+    section img{
+        height: 500px;
+    }
+    .container-fluid{
+        width:100%;
+    }
+}
+/* -sm */
+/* @media screen and (max-width: 767px) {
+    section img{
+        height: 300px;
+    }
+} */
+/* -xsm */
+@media screen and (max-width: 575px) {
+    section img{
+        height: 250px;
     }
 }
