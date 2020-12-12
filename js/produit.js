@@ -39,6 +39,8 @@ function addToBasket()
     localStorage.setItem("objet" + (localStorage.length + 1), JSON.stringify(objectToBasket));
 }
 
+printBasketInfo();
+
 // Interrogation du serveur via une requete HTTP en utilisant l'API fetch
 fetch("http://localhost:3000/api/teddies/" + getIdFromUrl())
 .then(function(response)
@@ -63,4 +65,5 @@ const btn = document.querySelector("div.card-body button");
 btn.addEventListener("click", function()
 {
     addToBasket();
+    printBasketInfo();
 });

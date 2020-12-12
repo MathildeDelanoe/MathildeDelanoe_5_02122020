@@ -11,3 +11,11 @@ function priceToCentsString(stringPrice)
 {
     return Number(stringPrice.slice(0, -1)) * 100;
 }
+
+/* Cette fonction récupère le nombre d'éléments du localStorage pour afficher
+ la quantité d'article dans le panier */
+function printBasketInfo()
+{
+    let div = document.querySelector("ul.navbar-nav li p");
+    div.innerHTML = localStorage.length.toString();
+}

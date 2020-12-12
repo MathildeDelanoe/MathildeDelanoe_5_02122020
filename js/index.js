@@ -59,6 +59,8 @@ function fillCatalogue(productsTable)
     lastRow[lastRow.length-1].classList.add("mb-3"); // Ajouter une margin sur la derniere ligne
 }
 
+printBasketInfo()
+
 // Interrogation du serveur via une requete HTTP en utilisant l'API fetch
 fetch("http://localhost:3000/api/teddies/")
 .then(function(response)
