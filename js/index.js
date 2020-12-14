@@ -10,7 +10,6 @@ function addToCatalogue(product)
     let card = document.createElement("div");
     card.classList.add("card"); // Creation de la colonne avec une classe "card"
     let cardImg = document.createElement("img");
-    cardImg.classList.add("card-img-top"); // Creation de la colonne avec une classe "card-img-top"
     cardImg.setAttribute("src", product.imageUrl);
     cardImg.setAttribute("alt", "Picture of " + product.name);
     let cardBody = document.createElement("div");

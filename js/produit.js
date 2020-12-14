@@ -7,11 +7,16 @@ function getIdFromUrl()
 // Cette fonction remplit la fiche produit de celui qui est sélectionné
 function fillProductSheet(product)
 {
-    let image = document.querySelector("div.card img");
+    let card = document.querySelector("div.card");
+    let image = document.createElement("img");
     image.setAttribute("src", product.imageUrl);
     image.setAttribute("alt", "Picture of " + product.name);
-    let name = document.querySelector("div.card-body h3");
+    card.insertBefore(image, card.firstChild);
+    let cardBody = document.querySelector("div.card-body");
+    let name = document.createElement("h3");
     name.innerHTML = product.name;
+    name.classList.add("card-title");
+    cardBody.insertBefore(name, cardBody.firstChild);
     let description = document.querySelector("div.card-body p.card-text");
     description.innerHTML = product.description;
     let selection = document.getElementById("colorSelection");

@@ -15,8 +15,13 @@ footer
 
 section img
 {
-    border: 1px solid;
+    border: 1px solid rgb(216, 216, 216);
     height: 350px;
+}
+
+.card
+{
+    box-shadow:10px 5px 5px grey;
 }
 
 #catalogue .container-fluid
@@ -50,14 +55,6 @@ nav div ul li div p
     font-size: small;
 }
 
-@media screen and (max-width: 1024px)
-{
-    section img
-    {
-        height: 200px;
-    }
-}
-
 /* -md */
 @media screen and (max-width: 991px)
 {
@@ -74,10 +71,6 @@ nav div ul li div p
    {
         margin-top:10px;
     }
-    section img
-    {
-        height: 500px;
-    }
     .container-fluid
     {
         width:100%;
@@ -88,17 +81,25 @@ nav div ul li div p
         left: 50px;
     }
 }
-/* -sm */
-/* @media screen and (max-width: 767px) {
-    section img{
-        height: 300px;
-    }
-} */
-/* -xsm */
-@media screen and (max-width: 575px)
+
+
+@media screen and (max-width: 1024px)
 {
     section img
     {
-        height: 250px;
+        height: 55vw;
+    }
+}
+
+@media screen and (min-width:1024px) and (max-width:1281px)
+{
+    section img
+    {
+        height: 25vw;
+    }
+
+    #catalogue .container-fluid
+    {
+        width:90%;
     }
 }
