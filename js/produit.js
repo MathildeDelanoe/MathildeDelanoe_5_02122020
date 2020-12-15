@@ -57,20 +57,20 @@ printBasketInfo();
 // Interrogation du serveur via une requete HTTP en utilisant l'API fetch
 fetch("http://localhost:3000/api/teddies/" + getIdFromUrl())
 .then(function(response)
-{
-    if (response.ok && (response.status >= 200 && response.status <= 299))
     {
-        return response.json(); // Gestion des bons cas seulement si le code est entre 200 et 299
-    }
-    else
-    {
-        throw new Error('error code outside [200, 299]');
-    }
-})
+        if (response.ok && (response.status >= 200 && response.status <= 299))
+        {
+            return response.json(); // Gestion des bons cas seulement si le code est entre 200 et 299
+        }
+        else
+        {
+            throw new Error('error code outside [200, 299]');
+        }
+    })
 .then(function(response)
-{
-    fillProductSheet(response);
-})
+    {
+        fillProductSheet(response);
+    })
 .catch(error => console.log("Erreur : " + error))
 
 //Ecoute du clic sur le bouton d'ajout au panier
