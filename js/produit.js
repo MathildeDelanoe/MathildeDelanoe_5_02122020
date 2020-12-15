@@ -44,6 +44,14 @@ function addToBasket()
     localStorage.setItem("objet" + (localStorage.length + 1), JSON.stringify(objectToBasket));
 }
 
+function printChoice(){
+    let page = document.getElementsByClassName("container-fluid");
+    page[0].setAttribute("style", "opacity:0.5");
+    let question = document.getElementById("apresPanier");
+    question.setAttribute("style", "opacity:1");
+}
+
+// Appel de la fonction qui place un cercle au dessus du panier avec le nombre d'éléments a l'ouverture de la page
 printBasketInfo();
 
 // Interrogation du serveur via une requete HTTP en utilisant l'API fetch
@@ -56,7 +64,7 @@ fetch("http://localhost:3000/api/teddies/" + getIdFromUrl())
     }
     else
     {
-        throw new Error('error');
+        throw new Error('error code outside [200, 299]');
     }
 })
 .then(function(response)
@@ -66,9 +74,21 @@ fetch("http://localhost:3000/api/teddies/" + getIdFromUrl())
 .catch(error => console.log("Erreur : " + error))
 
 //Ecoute du clic sur le bouton d'ajout au panier
+let personalisation = document.getElementById("colorSelection");
 const btn = document.querySelector("div.card-body button");
-btn.addEventListener("click", function()
+btn.addEventListener("click", function(event)
 {
-    addToBasket();
-    printBasketInfo();
-});
+    if (personalisation.value === "")
+    {
+        alert("Personnalisation non selectionnée");
+        event.preventDefault();
+    }
+    else
+    {
+        addToBasket();
+        printBasketInfo(); // Remet a jour le panier en haut a droite
+        printChoice();
+    }
+}
+);
+

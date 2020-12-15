@@ -13,7 +13,7 @@
   </head>
 
   <body class="d-flex flex-column min-vh-100">
-    <header>
+    <header id="header">
         <nav class="navbar navbar-expand-lg navbar-light">
             <a class="navbar-brand" href="index.html">
                 <i class="fas fa-shopping-cart  pr-1"></i>
@@ -48,8 +48,28 @@
                         <option value="">--</option>
                     </select>
                     <p class="price text-right font-weight-bold"></p>
-                    <button type="button">Ajouter au panier</button>
+                    <button type="button"><a href="#header" class="text-reset text-decoration-none">Ajouter au panier</a></button>
                 </div>
+            </div>
+        </div>
+        <div id="apresPanier" class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <p>Votre produit a été ajouté au panier</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Que souhaitez-vous faire maintenant?</p>
+                </div>
+            </div>
+            <div class="questionPanier row">
+              <div class="col">
+                <button type="button" id="poursuiteAchat" class="btn-sm btn-block"><a href="index.html" class="text-reset text-decoration-none">Poursuivre mes achats</a></button>
+              </div>
+              <div class="col ">
+                <button type="button" id="voirPanier" class="btn-sm btn-block"><a href="panier.html" class="text-reset text-decoration-none">Visualiser mon panier</a></button>
+              </div>
             </div>
         </div>
     </section>

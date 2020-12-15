@@ -58,6 +58,7 @@ function fillCatalogue(productsTable)
     lastRow[lastRow.length-1].classList.add("mb-3"); // Ajouter une margin sur la derniere ligne
 }
 
+// Appel de la fonction qui place un cercle au dessus du panier avec le nombre d'éléments
 printBasketInfo()
 
 // Interrogation du serveur via une requete HTTP en utilisant l'API fetch
@@ -70,7 +71,7 @@ fetch("http://localhost:3000/api/teddies/")
     }
     else
     {
-        throw new Error('error');
+        throw new Error('error code outside [200, 299]');
     }
 })
 .then(function(response)
