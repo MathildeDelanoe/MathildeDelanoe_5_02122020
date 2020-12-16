@@ -70,7 +70,8 @@ nav div ul li div p
 }
 
 /* Gestion de la question apres ajout au panier*/
-#apresPanier{
+#apresPanier
+{
     position: absolute;
     top:50%;
     left:50%;
@@ -82,12 +83,36 @@ nav div ul li div p
     opacity: 0;
 }
 
+/*pour panier.html*/
+#panier_recap
+{
+    width:30%;
+
+}
+
+#panier_recap img
+{
+    width:100px;
+    height:100px;
+}
+
 
 @media screen and (max-width: 1024px)
 {
     section img
     {
         height: 55vw;
+    }
+
+    #panier_recap
+    {
+        width:80%;
+
+    }
+    #panier_recap img
+    {
+        width:100px;
+        height:100px;
     }
 }
 
