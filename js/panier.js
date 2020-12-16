@@ -1,11 +1,11 @@
 //Fonction pour afficher le panier
 function showBasket()
 {
+    let container = document.getElementsByClassName("container-fluid");
 
     for (let i = 0; i < localStorage.length; i++)
     {
         let object = JSON.parse(localStorage.getItem(localStorage.key(i)));
-        let container = document.getElementsByClassName("container-fluid");
         let row = document.createElement("div");
         row.classList.add("row","border-bottom","border-secondary","align-items-center");
         let firstColumn = document.createElement("div");
@@ -17,6 +17,7 @@ function showBasket()
         container[0].appendChild(row);
         row.appendChild(firstColumn);
         firstColumn.appendChild(image);
+       
 
         let secondColumn = document.createElement("div");
         secondColumn.classList.add("col");
@@ -34,7 +35,30 @@ function showBasket()
         secondColumn.appendChild(selection);
         secondColumn.appendChild(price);
     }
-  
+
+    let total = document.createElement("div");
+    total.classList.add("row");
+    let firstColumn = document.createElement("div");
+    firstColumn.classList.add("col","col-8");
+    let secondColumn = document.createElement("div");
+    secondColumn.classList.add("col","col-4");
+
+    container[0].appendChild(total);
+    total.appendChild(firstColumn);
+    total.appendChild(secondColumn);
+
+    let lineTotal = document.createElement("p");
+    lineTotal.innerHTML = "Prix total de la commande : " ;
+    lineTotal.classList.add("font-weight-bold");
+    lineTotal.setAttribute("style", "font-size:1.1em");
+    let totalPrice = document.createElement("p");
+    totalPrice.innerHTML = "100€" ;
+    totalPrice.classList.add("font-weight-bold","text-right");
+    totalPrice.setAttribute("style", "font-size:1.1em");
+
+    firstColumn.appendChild(lineTotal);
+    secondColumn.appendChild(totalPrice);
+
 }
  
 
