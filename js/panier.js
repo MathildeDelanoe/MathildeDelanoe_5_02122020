@@ -73,8 +73,67 @@ function showBasket()
     secondColumn.appendChild(totalPrice);
 }
 
+function isValidData(data, errorMessage)
+{
+    return new Promise(function(resolve, reject)
+    {
+        if(data.checkValidity())
+        {
+            resolve(true);
+        }
+        else
+        {
+            reject(errorMessage);
+        }
+    });
+}
+
+function activateSubmitButton()
+{
+    Promise.all([isValidData(firstNameInput, "Prénom incorrect"),
+                 isValidData(lastNameInput, "Nom incorrect"),
+                 isValidData(addressInput, "Adresse incorrecte"),
+                 isValidData(cityInput, "Ville incorrecte"),
+                 isValidData(emailInput, "Email incorrect")])
+    .then(function()
+        {
+            submitButton.disabled = false;
+        })
+    .catch(function(error)
+        {
+            submitButton.disabled = true;
+        });
+}
+
 // Appel de la fonction qui place un cercle au dessus du panier avec le nombre d'éléments a l'ouverture de la page
 printBasketInfo();
 
 //Appel la fonction qui affiche le panier
 showBasket();
+
+
+let firstNameInput = document.getElementById("firstName");
+let lastNameInput = document.getElementById("lastName");
+let addressInput = document.getElementById("address");
+let cityInput = document.getElementById("city");
+let emailInput = document.getElementById("email");
+
+let submitButton = document.getElementById("submitButton");
+
+
+
+firstNameInput.addEventListener('change', function(){
+    activateSubmitButton()}
+    );
+lastNameInput.addEventListener('change', function(){
+    activateSubmitButton()}
+    );
+addressInput.addEventListener('change', function(){
+    activateSubmitButton()}
+    );
+cityInput.addEventListener('change', function(){
+    activateSubmitButton()}
+    );
+emailInput.addEventListener('change', function(){
+    activateSubmitButton()}
+    );
