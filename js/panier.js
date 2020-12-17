@@ -16,67 +16,77 @@ function showBasket()
 {
     let container = document.getElementsByClassName("container-fluid");
 
-    for (let i = 0; i < localStorage.length; i++)
+    if (localStorage.length === 0)
     {
-        let object = JSON.parse(localStorage.getItem(localStorage.key(i)));
-        let row = document.createElement("div");
-        row.classList.add("row","border-bottom","border-secondary","align-items-center");
-        let firstColumn = document.createElement("div");
-        firstColumn.classList.add("col","text-center");
-
-        let image = document.createElement("img");
-        image.setAttribute("src", object.image);
-        image.setAttribute("alt", "Picture of " + object.name);
-        container[0].appendChild(row);
-        row.appendChild(firstColumn);
-        firstColumn.appendChild(image);
-
-        let secondColumn = document.createElement("div");
-        secondColumn.classList.add("col");
-        let name = document.createElement("h3");
-        name.innerHTML = object.name;
-        name.classList.add("font-weight-bold");
-        name.setAttribute("style", "font-size:1.2em");
-        let selection = document.createElement("p");
-        selection.innerHTML = "Couleur : " + object.selection;
-        let quantity = document.createElement("input");
-        quantity.setAttribute("type", "number");
-        quantity.setAttribute("min", "1");
-        quantity.setAttribute("value", "1");
-        quantity.setAttribute("style", "width:5em");
-        let price = document.createElement("p");
-        price.classList.add("text-right","font-weight-bold");
-        price.innerHTML = priceToEuros(object.price);
-        prices.push(object.price);
-        row.appendChild(secondColumn);
-        secondColumn.appendChild(name);
-        secondColumn.appendChild(selection);
-        secondColumn.appendChild(quantity);
-        secondColumn.appendChild(price);
+        let emptyBasket = document.createElement("p");
+        emptyBasket.innerHTML = "Votre panier est vide";
+        container[0].appendChild(emptyBasket);
+        container[1].setAttribute("style", "display:none");
     }
+    else
+    {
+        for (let i = 0; i < localStorage.length; i++)
+        {
+            let object = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            let row = document.createElement("div");
+            row.classList.add("row","border-bottom","border-secondary","align-items-center");
+            let firstColumn = document.createElement("div");
+            firstColumn.classList.add("col","text-center");
 
-    let total = document.createElement("div");
-    total.classList.add("row");
-    let firstColumn = document.createElement("div");
-    firstColumn.classList.add("col","col-8");
-    let secondColumn = document.createElement("div");
-    secondColumn.classList.add("col","col-4");
+            let image = document.createElement("img");
+            image.setAttribute("src", object.image);
+            image.setAttribute("alt", "Picture of " + object.name);
+            container[0].appendChild(row);
+            row.appendChild(firstColumn);
+            firstColumn.appendChild(image);
 
-    container[0].appendChild(total);
-    total.appendChild(firstColumn);
-    total.appendChild(secondColumn);
+            let secondColumn = document.createElement("div");
+            secondColumn.classList.add("col");
+            let name = document.createElement("h3");
+            name.innerHTML = object.name;
+            name.classList.add("font-weight-bold");
+            name.setAttribute("style", "font-size:1.2em");
+            let selection = document.createElement("p");
+            selection.innerHTML = "Couleur : " + object.selection;
+            let quantity = document.createElement("input");
+            quantity.setAttribute("type", "number");
+            quantity.setAttribute("min", "1");
+            quantity.setAttribute("value", "1");
+            quantity.setAttribute("style", "width:5em");
+            let price = document.createElement("p");
+            price.classList.add("text-right","font-weight-bold");
+            price.innerHTML = priceToEuros(object.price);
+            prices.push(object.price);
+            row.appendChild(secondColumn);
+            secondColumn.appendChild(name);
+            secondColumn.appendChild(selection);
+            secondColumn.appendChild(quantity);
+            secondColumn.appendChild(price);
+        }
 
-    let lineTotal = document.createElement("p");
-    lineTotal.innerHTML = "Prix total de la commande : " ;
-    lineTotal.classList.add("font-weight-bold");
-    lineTotal.setAttribute("style", "font-size:1.1em");
-    let totalPrice = document.createElement("p");
-    totalPrice.innerHTML = priceToEuros(calculateTotalAmount(prices));
-    totalPrice.classList.add("font-weight-bold","text-right");
-    totalPrice.setAttribute("style", "font-size:1.1em");
+        let total = document.createElement("div");
+        total.classList.add("row");
+        let firstColumn = document.createElement("div");
+        firstColumn.classList.add("col","col-8");
+        let secondColumn = document.createElement("div");
+        secondColumn.classList.add("col","col-4");
 
-    firstColumn.appendChild(lineTotal);
-    secondColumn.appendChild(totalPrice);
+        container[0].appendChild(total);
+        total.appendChild(firstColumn);
+        total.appendChild(secondColumn);
+
+        let lineTotal = document.createElement("p");
+        lineTotal.innerHTML = "Prix total de la commande : " ;
+        lineTotal.classList.add("font-weight-bold");
+        lineTotal.setAttribute("style", "font-size:1.1em");
+        let totalPrice = document.createElement("p");
+        totalPrice.innerHTML = priceToEuros(calculateTotalAmount(prices));
+        totalPrice.classList.add("font-weight-bold","text-right");
+        totalPrice.setAttribute("style", "font-size:1.1em");
+
+        firstColumn.appendChild(lineTotal);
+        secondColumn.appendChild(totalPrice);
+    }
 }
 
 function isValidData(data, errorMessage)
