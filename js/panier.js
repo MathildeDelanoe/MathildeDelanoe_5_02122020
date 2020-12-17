@@ -1,3 +1,16 @@
+let prices = [];
+
+function calculateTotalAmount(tableOfPrice)
+{
+    let sum = 0;
+    for (let price of tableOfPrice)
+    {
+        
+        sum += price;
+    }
+    return sum;
+}
+
 //Fonction pour afficher le panier
 function showBasket()
 {
@@ -17,7 +30,6 @@ function showBasket()
         container[0].appendChild(row);
         row.appendChild(firstColumn);
         firstColumn.appendChild(image);
-       
 
         let secondColumn = document.createElement("div");
         secondColumn.classList.add("col");
@@ -30,6 +42,7 @@ function showBasket()
         let price = document.createElement("p");
         price.classList.add("text-right","font-weight-bold");
         price.innerHTML = priceToEuros(object.price);
+        prices.push(object.price);
         row.appendChild(secondColumn);
         secondColumn.appendChild(name);
         secondColumn.appendChild(selection);
@@ -52,17 +65,13 @@ function showBasket()
     lineTotal.classList.add("font-weight-bold");
     lineTotal.setAttribute("style", "font-size:1.1em");
     let totalPrice = document.createElement("p");
-    totalPrice.innerHTML = "100€" ;
+    totalPrice.innerHTML = priceToEuros(calculateTotalAmount(prices));
     totalPrice.classList.add("font-weight-bold","text-right");
     totalPrice.setAttribute("style", "font-size:1.1em");
 
     firstColumn.appendChild(lineTotal);
     secondColumn.appendChild(totalPrice);
-
 }
- 
-
-
 
 // Appel de la fonction qui place un cercle au dessus du panier avec le nombre d'éléments a l'ouverture de la page
 printBasketInfo();
