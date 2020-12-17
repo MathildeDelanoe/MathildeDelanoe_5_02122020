@@ -39,6 +39,11 @@ function showBasket()
         name.setAttribute("style", "font-size:1.2em");
         let selection = document.createElement("p");
         selection.innerHTML = "Couleur : " + object.selection;
+        let quantity = document.createElement("input");
+        quantity.setAttribute("type", "number");
+        quantity.setAttribute("min", "1");
+        quantity.setAttribute("value", "1");
+        quantity.setAttribute("style", "width:5em");
         let price = document.createElement("p");
         price.classList.add("text-right","font-weight-bold");
         price.innerHTML = priceToEuros(object.price);
@@ -46,6 +51,7 @@ function showBasket()
         row.appendChild(secondColumn);
         secondColumn.appendChild(name);
         secondColumn.appendChild(selection);
+        secondColumn.appendChild(quantity);
         secondColumn.appendChild(price);
     }
 
