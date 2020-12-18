@@ -51,12 +51,13 @@ function showBasket()
             let quantity = document.createElement("input");
             quantity.setAttribute("type", "number");
             quantity.setAttribute("min", "1");
-            quantity.setAttribute("value", "1");
+            quantity.setAttribute("value", object.quantity);
             quantity.setAttribute("style", "width:5em");
             let price = document.createElement("p");
-            price.classList.add("text-right","font-weight-bold");
-            price.innerHTML = priceToEuros(object.price);
-            prices.push(object.price);
+            price.classList.add("price", "text-right","font-weight-bold");
+            let productPrice = object.quantity*object.price;
+            price.innerHTML = priceToEuros(productPrice);
+            prices.push(productPrice);
             row.appendChild(secondColumn);
             secondColumn.appendChild(name);
             secondColumn.appendChild(selection);
@@ -81,12 +82,20 @@ function showBasket()
         lineTotal.setAttribute("style", "font-size:1.1em");
         let totalPrice = document.createElement("p");
         totalPrice.innerHTML = priceToEuros(calculateTotalAmount(prices));
-        totalPrice.classList.add("font-weight-bold","text-right");
+        totalPrice.classList.add("totalPrice", "font-weight-bold","text-right");
         totalPrice.setAttribute("style", "font-size:1.1em");
 
         firstColumn.appendChild(lineTotal);
         secondColumn.appendChild(totalPrice);
     }
+}
+
+// Fonction qui met a jour la quantite du produit dans le panier (localStorage)
+function updateBasketWithQuantity(indexObject, newQuantity)
+{
+    let object = JSON.parse(localStorage.getItem(localStorage.key(indexObject)));
+    object.quantity = newQuantity;
+    localStorage.setItem(localStorage.key(indexObject), JSON.stringify(object));
 }
 
 function isValidData(data, errorMessage)
@@ -124,10 +133,30 @@ function activateSubmitButton()
 // Appel de la fonction qui place un cercle au dessus du panier avec le nombre d'éléments a l'ouverture de la page
 printBasketInfo();
 
-//Appel la fonction qui affiche le panier
+// Appel la fonction qui affiche le panier
 showBasket();
 
+// Gestion de la quantité de produits et mise à jour du prix
+let quantityButtons = document.querySelectorAll("#panier_recap input");
+for (let index = 0; index < quantityButtons.length; index++)
+{
+    quantityButtons[index].addEventListener("change", function(event)
+    {
+        let object = JSON.parse(localStorage.getItem(localStorage.key(index)));
+        // Changement du prix du produit
+        let currentPrice = document.querySelectorAll("p.price");
+        let newPrice = object.price * event.target.value;
+        currentPrice[index].innerHTML = priceToEuros(newPrice);
+        // Changement du prix total de la commande
+        prices[index] = newPrice;
+        let totalPrice = document.getElementsByClassName("totalPrice");
+        totalPrice[0].innerHTML = priceToEuros(calculateTotalAmount(prices));
+        // Mise à jour de la quantité dans le local storage
+        updateBasketWithQuantity(index, event.target.value);
+    })
+}
 
+// Formulaire
 let firstNameInput = document.getElementById("firstName");
 let lastNameInput = document.getElementById("lastName");
 let addressInput = document.getElementById("address");

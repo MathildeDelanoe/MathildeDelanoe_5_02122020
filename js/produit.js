@@ -39,7 +39,8 @@ function addToBasket()
         name : document.querySelector("div.card-body h3").innerHTML,
         selection : document.getElementById("colorSelection").value,
         price : priceToCentsString(document.querySelector("div.card-body p.price").innerHTML),
-        image : document.querySelector("div.card img").getAttribute("src")
+        image : document.querySelector("div.card img").getAttribute("src"),
+        quantity: 1
     };
     localStorage.setItem("objet" + (localStorage.length + 1), JSON.stringify(objectToBasket));
 }
