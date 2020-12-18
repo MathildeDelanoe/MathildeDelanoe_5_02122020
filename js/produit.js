@@ -55,24 +55,9 @@ function printChoice(){
 // Appel de la fonction qui place un cercle au dessus du panier avec le nombre d'éléments a l'ouverture de la page
 printBasketInfo();
 
-// Interrogation du serveur via une requete HTTP en utilisant l'API fetch
-fetch("http://localhost:3000/api/teddies/" + getIdFromUrl())
-.then(function(response)
-    {
-        if (response.ok && (response.status >= 200 && response.status <= 299))
-        {
-            return response.json(); // Gestion des bons cas seulement si le code est entre 200 et 299
-        }
-        else
-        {
-            throw new Error('error code outside [200, 299]');
-        }
-    })
-.then(function(response)
-    {
-        fillProductSheet(response);
-    })
-.catch(error => console.log("Erreur : " + error))
+// Envoi de la requete get au serveur
+fetchApi("http://localhost:3000/api/teddies/" + getIdFromUrl(), [], fillProductSheet);
+
 
 //Ecoute du clic sur le bouton d'ajout au panier
 let personalisation = document.getElementById("colorSelection");

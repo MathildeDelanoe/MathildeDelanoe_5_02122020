@@ -131,20 +131,5 @@ let options =
     body: JSON.stringify({contact, products})
 };
 
-fetch('http://localhost:3000/api/teddies/order', options)
-.then(function(response)
-    {
-        if (response.ok && (response.status >= 200 && response.status <= 299))
-        {
-            return response.json(); // Gestion des bons cas seulement si le code est entre 200 et 299
-        }
-        else
-        {
-            throw new Error('error code outside [200, 299]');
-        }
-    })
-.then(function(response)
-    {
-        fillConfirmationMessage(response);
-    })
-.catch(error => console.log(error))
+// Envoi de la requete post au serveur
+fetchApi("http://localhost:3000/api/teddies/order/", options, fillConfirmationMessage);
