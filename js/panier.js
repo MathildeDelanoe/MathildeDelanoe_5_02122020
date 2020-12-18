@@ -86,6 +86,7 @@ function updateBasketWithQuantity(indexObject, newQuantity)
     let object = JSON.parse(localStorage.getItem(localStorage.key(indexObject)));
     object.quantity = newQuantity;
     localStorage.setItem(localStorage.key(indexObject), JSON.stringify(object));
+    printBasketInfo();
 }
 
 function isValidData(data, errorMessage)
@@ -142,7 +143,7 @@ for (let index = 0; index < quantityButtons.length; index++)
         let totalPrice = document.getElementsByClassName("totalPrice");
         totalPrice[0].innerHTML = priceToEuros(calculateTotalAmount(prices));
         // Mise à jour de la quantité dans le local storage
-        updateBasketWithQuantity(index, event.target.value);
+        updateBasketWithQuantity(index, Number(event.target.value));
     })
 }
 

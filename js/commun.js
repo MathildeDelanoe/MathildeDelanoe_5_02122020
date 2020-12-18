@@ -17,7 +17,16 @@ function priceToCentsString(stringPrice)
 function printBasketInfo()
 {
     let div = document.querySelector("ul.navbar-nav li p");
-    div.innerHTML = localStorage.length.toString();
+    let quantities = 0;
+    for (let i = 0; i < localStorage.length; i++)
+    {
+        if (localStorage.key(i) != "personalData")
+        {
+            let object = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            quantities+=object.quantity;
+        }
+    }
+    div.innerHTML = quantities.toString();
 }
 
 // Calcule la somme d'un tableau
@@ -26,7 +35,6 @@ function calculateTotalAmount(tableOfPrice)
     let sum = 0;
     for (let price of tableOfPrice)
     {
-        
         sum += price;
     }
     return sum;
