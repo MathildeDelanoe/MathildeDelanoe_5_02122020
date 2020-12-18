@@ -8,10 +8,11 @@ function showBasket()
 
     if (localStorage.length === 0)
     {
-        let emptyBasket = document.createElement("p");
+        let emptyBasket = document.createElement("h2");
         emptyBasket.innerHTML = "Votre panier est vide";
         container[0].appendChild(emptyBasket);
         container[1].setAttribute("style", "display:none");
+        emptyBasket.classList.add("font-weight-bold","text-center",'mt-5');
     }
     else
     {
@@ -23,12 +24,16 @@ function showBasket()
             let firstColumn = document.createElement("div");
             firstColumn.classList.add("col","text-center");
 
+            let productLink = document.createElement("a");
+            productLink.setAttribute("href", "produit.html?id=" + object.id);
             let image = document.createElement("img");
             image.setAttribute("src", object.image);
             image.setAttribute("alt", "Picture of " + object.name);
             container[0].appendChild(row);
             row.appendChild(firstColumn);
-            firstColumn.appendChild(image);
+            productLink.appendChild(image);
+            firstColumn.appendChild(productLink);
+
 
             let secondColumn = document.createElement("div");
             secondColumn.classList.add("col");
