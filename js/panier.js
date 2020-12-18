@@ -165,8 +165,6 @@ let emailInput = document.getElementById("email");
 
 let submitButton = document.getElementById("submitButton");
 
-
-
 firstNameInput.addEventListener('change', function(){
     activateSubmitButton()}
     );
@@ -182,3 +180,17 @@ cityInput.addEventListener('change', function(){
 emailInput.addEventListener('change', function(){
     activateSubmitButton()}
     );
+
+// Gestion du clic sur le bouton "Envoyer"
+submitButton.addEventListener('click', function()
+{
+    let contact = {
+        firstName : firstNameInput.value,
+        lastName : lastNameInput.value,
+        address : addressInput.value,
+        city : cityInput.value,
+        email : emailInput.value
+    };
+    localStorage.setItem("personalData", JSON.stringify(contact));
+    window.location = 'confirmation.html';
+});
