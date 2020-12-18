@@ -1,15 +1,5 @@
 let prices = [];
 
-function calculateTotalAmount(tableOfPrice)
-{
-    let sum = 0;
-    for (let price of tableOfPrice)
-    {
-        
-        sum += price;
-    }
-    return sum;
-}
 
 //Fonction pour afficher le panier
 function showBasket()

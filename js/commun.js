@@ -19,3 +19,15 @@ function printBasketInfo()
     let div = document.querySelector("ul.navbar-nav li p");
     div.innerHTML = localStorage.length.toString();
 }
+
+// Calcule la somme d'un tableau
+function calculateTotalAmount(tableOfPrice)
+{
+    let sum = 0;
+    for (let price of tableOfPrice)
+    {
+        
+        sum += price;
+    }
+    return sum;
+}
