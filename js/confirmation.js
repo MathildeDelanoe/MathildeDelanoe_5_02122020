@@ -96,6 +96,10 @@ function fillConfirmationMessage(response)
     finalWord.innerHTML = "Merci pour votre commande.";
 
     section[0].appendChild(finalWord);
+
+    // Suppression du panier via nettoyage du localStorage
+    localStorage.clear();
+    printBasketInfo(); // Besoin pour mettre a jour la valeur du panier en haut a droite
 }
 
 // Appel de la fonction qui place un cercle au dessus du panier avec le nombre d'éléments a l'ouverture de la page
