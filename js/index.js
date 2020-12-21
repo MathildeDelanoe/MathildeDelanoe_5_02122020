@@ -1,7 +1,7 @@
 const PRODUCTS_NUMBER_PER_ROW = 3;
 const BOOTSTRAP_COLUMNS_NUMBER = 12;
 const BOOTSTRAP_COLUMNS_PER_PRODUCT = BOOTSTRAP_COLUMNS_NUMBER / PRODUCTS_NUMBER_PER_ROW;
-
+// Ajoute le produit au catalogue
 function addToCatalogue(product)
 {
     let column = document.createElement("div");
@@ -37,6 +37,7 @@ function addToCatalogue(product)
     return column;
 }
 
+// Crée la structure du catalogue
 function fillCatalogue(productsTable)
 {
     let container = document.querySelector("div.container-fluid");

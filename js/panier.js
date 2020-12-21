@@ -36,7 +36,7 @@ function showBasket()
 
 
             let secondColumn = document.createElement("div");
-            secondColumn.classList.add("col");
+            secondColumn.classList.add("col","position-relative");
             let name = document.createElement("h3");
             name.innerHTML = object.name;
             name.classList.add("font-weight-bold");
@@ -53,11 +53,16 @@ function showBasket()
             let productPrice = object.quantity*object.price;
             price.innerHTML = priceToEuros(productPrice);
             prices.push(productPrice);
+            let deleteCross = document.createElement("i");
+            deleteCross.classList.add("fa","fa-times","position-absolute");
+            deleteCross.setAttribute("style", "top:5px; right:20px;cursor:pointer");
+            deleteCross.setAttribute("title","Supprimer l'article");
             row.appendChild(secondColumn);
             secondColumn.appendChild(name);
             secondColumn.appendChild(selection);
             secondColumn.appendChild(quantity);
             secondColumn.appendChild(price);
+            secondColumn.appendChild(deleteCross);
         }
 
         let total = document.createElement("div");
@@ -190,3 +195,4 @@ submitButton.addEventListener('click', function()
     localStorage.setItem("personalData", JSON.stringify(contact));
     window.location = 'confirmation.html';
 });
+
