@@ -78,3 +78,20 @@ btn.addEventListener("click", function(event)
 }
 );
 
+// Ecouter le bouton de retour vers le catalogue
+let poursuiteAchat = document.getElementById("poursuiteAchat");
+poursuiteAchat.addEventListener('click', function() {
+    window.location = 'index.html';
+});
+
+// Ecouter le bouton de direction vers le panier
+let visionPanier = document.getElementById("voirPanier");
+visionPanier.addEventListener('click', function() {
+    window.location = 'panier.html';
+});
+
+// Ecouter le bouton de direction vers le panier
+let ajoutPanier = document.getElementById("ajoutPanier");
+ajoutPanier.addEventListener('click', function() {
+    window.location.href = '#header';
+});
