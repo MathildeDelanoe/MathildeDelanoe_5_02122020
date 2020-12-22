@@ -6,29 +6,30 @@ function showBasket()
 {
     let container = document.getElementsByClassName("container-fluid");
 
-    if (localStorage.length === 0)
+    let objectsFromBasket = JSON.parse(localStorage.getItem("object"));
+    if (objectsFromBasket == null)
     {
         let emptyBasket = document.createElement("h2");
         emptyBasket.innerHTML = "Votre panier est vide";
-        container[0].appendChild(emptyBasket);
-        container[1].setAttribute("style", "display:none");
+        container[0].appendChild(emptyBasket); // Afficher le message de panier vide dans le premier container de la page
+        container[1].setAttribute("style", "display:none"); // Le deuxieme container de la page contient le formulaire qui n'est pas affiché dans ce cas
         emptyBasket.classList.add("font-weight-bold","text-center",'mt-5');
     }
     else
     {
-        for (let i = 0; i < localStorage.length; i++)
+        // Dans ce cas, le tableau d'objets n'est pas vide dans le localStorage
+        for (let product of objectsFromBasket)
         {
-            let object = JSON.parse(localStorage.getItem(localStorage.key(i)));
             let row = document.createElement("div");
             row.classList.add("row","border-bottom","border-secondary","align-items-center");
             let firstColumn = document.createElement("div");
             firstColumn.classList.add("col","text-center");
 
             let productLink = document.createElement("a");
-            productLink.setAttribute("href", "produit.html?id=" + object.id);
+            productLink.setAttribute("href", "produit.html?id=" + product.id);
             let image = document.createElement("img");
-            image.setAttribute("src", object.image);
-            image.setAttribute("alt", "Picture of " + object.name);
+            image.setAttribute("src", product.image);
+            image.setAttribute("alt", "Picture of " + product.name);
             container[0].appendChild(row);
             row.appendChild(firstColumn);
             productLink.appendChild(image);
@@ -38,19 +39,19 @@ function showBasket()
             let secondColumn = document.createElement("div");
             secondColumn.classList.add("col","position-relative");
             let name = document.createElement("h3");
-            name.innerHTML = object.name;
+            name.innerHTML = product.name;
             name.classList.add("font-weight-bold");
             name.setAttribute("style", "font-size:1.2em");
             let selection = document.createElement("p");
-            selection.innerHTML = "Couleur : " + object.selection;
+            selection.innerHTML = "Couleur : " + product.selection;
             let quantity = document.createElement("input");
             quantity.setAttribute("type", "number");
             quantity.setAttribute("min", "1");
-            quantity.setAttribute("value", object.quantity);
+            quantity.setAttribute("value", product.quantity);
             quantity.setAttribute("style", "width:5em");
             let price = document.createElement("p");
             price.classList.add("price", "text-right","font-weight-bold");
-            let productPrice = object.quantity*object.price;
+            let productPrice = (product.quantity * product.price);
             price.innerHTML = priceToEuros(productPrice);
             prices.push(productPrice);
             let deleteCross = document.createElement("i");
@@ -93,10 +94,13 @@ function showBasket()
 // Fonction qui met a jour la quantite du produit dans le panier (localStorage)
 function updateBasketWithQuantity(indexObject, newQuantity)
 {
-    let object = JSON.parse(localStorage.getItem(localStorage.key(indexObject)));
-    object.quantity = newQuantity;
-    localStorage.setItem(localStorage.key(indexObject), JSON.stringify(object));
-    printBasketInfo();
+    let objectsFromBasket = JSON.parse(localStorage.getItem("object"));
+    if (objectsFromBasket != null)
+    {
+        objectsFromBasket[indexObject].quantity = newQuantity;
+        localStorage.setItem("object", JSON.stringify(objectsFromBasket));
+        printBasketInfo();
+    }
 }
 
 function isValidData(data, errorMessage)
@@ -143,10 +147,11 @@ for (let index = 0; index < quantityButtons.length; index++)
 {
     quantityButtons[index].addEventListener("change", function(event)
     {
-        let object = JSON.parse(localStorage.getItem(localStorage.key(index)));
+        let objectsFromBasket = JSON.parse(localStorage.getItem("object"));
+        let object = objectsFromBasket[index];
         // Changement du prix du produit
         let currentPrice = document.querySelectorAll("p.price");
-        let newPrice = object.price * event.target.value;
+        let newPrice = (object.price * event.target.value);
         currentPrice[index].innerHTML = priceToEuros(newPrice);
         // Changement du prix total de la commande
         prices[index] = newPrice;

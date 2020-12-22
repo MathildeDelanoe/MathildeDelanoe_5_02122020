@@ -18,12 +18,12 @@ function printBasketInfo()
 {
     let div = document.querySelector("ul.navbar-nav li p");
     let quantities = 0;
-    for (let i = 0; i < localStorage.length; i++)
+    let objectsFromBasket = JSON.parse(localStorage.getItem("object"));
+    if (objectsFromBasket != null)
     {
-        if (localStorage.key(i) != "personalData")
+        for (let product of objectsFromBasket)
         {
-            let object = JSON.parse(localStorage.getItem(localStorage.key(i)));
-            quantities+=object.quantity;
+            quantities += product.quantity;
         }
     }
     div.innerHTML = quantities.toString();

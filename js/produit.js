@@ -42,7 +42,17 @@ function addToBasket()
         image : document.querySelector("div.card img").getAttribute("src"),
         quantity: 1
     };
-    localStorage.setItem("object" + (localStorage.length + 1), JSON.stringify(objectToBasket));
+    let objectContent = JSON.parse(localStorage.getItem("object"));
+    if (objectContent == null)
+    {
+        let objects = [objectToBasket];
+        localStorage.setItem("object", JSON.stringify(objects));
+    }
+    else
+    {
+        objectContent.push(objectToBasket);
+        localStorage.setItem("object", JSON.stringify(objectContent));
+    }
 }
 
 function printChoice(){

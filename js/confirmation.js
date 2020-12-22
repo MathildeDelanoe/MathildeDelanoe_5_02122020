@@ -33,34 +33,32 @@ function printBasketSummary(response)
     totalPriceAmount.classList.add("text-center");
     let tbody = document.createElement("tbody");
 
-    let amounts = []; 
+    let amounts = [];
 
-    for (let i = 0; i < localStorage.length; i++)
+    let objectsFromBasket = JSON.parse(localStorage.getItem("object"));
+    for (let product of objectsFromBasket)
     {
-        if (localStorage.key(i) != "personalData")
-        {
-            let object = JSON.parse(localStorage.getItem(localStorage.key(i)));
-            let line = document.createElement("tr");
-            let colName = document.createElement("td");
-            colName.classList.add("border","border-dark");
-            colName.innerHTML = object.name;
-            let colColor = document.createElement("td");
-            colColor.classList.add("border","border-dark");
-            colColor.innerHTML = object.selection;
-            let colQuantity = document.createElement("td");
-            colQuantity.classList.add("border","border-dark","text-center");
-            colQuantity.innerHTML = object.quantity;
-            let colPrice = document.createElement("td");
-            colPrice.classList.add("border","border-dark","text-center");
-            colPrice.innerHTML = priceToEuros(object.price*object.quantity);
-            amounts.push(object.price*object.quantity);
+        let line = document.createElement("tr");
+        let colName = document.createElement("td");
+        colName.classList.add("border","border-dark");
+        colName.innerHTML = product.name;
+        let colColor = document.createElement("td");
+        colColor.classList.add("border","border-dark");
+        colColor.innerHTML = product.selection;
+        let colQuantity = document.createElement("td");
+        colQuantity.classList.add("border","border-dark","text-center");
+        colQuantity.innerHTML = product.quantity;
+        let colPrice = document.createElement("td");
+        colPrice.classList.add("border","border-dark","text-center");
+        let productPrice = product.price * product.quantity;
+        colPrice.innerHTML = priceToEuros(productPrice);
+        amounts.push(productPrice);
 
-            tbody.appendChild(line);
-            line.appendChild(colName);
-            line.appendChild(colColor);
-            line.appendChild(colQuantity);
-            line.appendChild(colPrice);
-        }
+        tbody.appendChild(line);
+        line.appendChild(colName);
+        line.appendChild(colColor);
+        line.appendChild(colQuantity);
+        line.appendChild(colPrice);
     }
     
     totalPriceAmount.innerHTML = priceToEuros(calculateTotalAmount(amounts));
@@ -108,18 +106,13 @@ printBasketInfo();
 // Recuperation des donnees du local storage pour la requete post
 let contact = {};
 let products = [];
-for (let i = 0; i < localStorage.length; i++)
+
+let objectsFromBasket = JSON.parse(localStorage.getItem("object"));
+for (let product of objectsFromBasket)
 {
-    if (localStorage.key(i) === "personalData")
-    {
-        contact = JSON.parse(localStorage.getItem("personalData"));
-    }
-    else
-    {  
-        let object = JSON.parse(localStorage.getItem(localStorage.key(i)));
-        products.push(object.id);
-    }
+    products.push(product.id);
 }
+contact = JSON.parse(localStorage.getItem("personalData"));
 
 // Lancement de la requete post avec fetch
 let options = 
