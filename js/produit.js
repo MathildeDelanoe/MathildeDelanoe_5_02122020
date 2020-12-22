@@ -45,11 +45,13 @@ function addToBasket()
     let objectContent = JSON.parse(localStorage.getItem("object"));
     if (objectContent == null)
     {
+        // Ceci est le premier objet à ajouter au panier
         let objects = [objectToBasket];
         localStorage.setItem("object", JSON.stringify(objects));
     }
     else
     {
+        // Ici, nous avons un ou des objets dans le panier
         objectContent.push(objectToBasket);
         localStorage.setItem("object", JSON.stringify(objectContent));
     }

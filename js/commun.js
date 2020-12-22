@@ -65,6 +65,10 @@ function fetchApi (url, options, callback)
             {
                 message = 'Erreur venant du service web';
             }
+            else
+            {
+                message = 'Erreur d\'un autre type';
+            }
             throw new Error(message);
         }
     })

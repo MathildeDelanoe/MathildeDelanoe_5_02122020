@@ -1,13 +1,13 @@
 let prices = [];
 
-
 //Fonction pour afficher le panier
 function showBasket()
 {
     let container = document.getElementsByClassName("container-fluid");
 
     let objectsFromBasket = JSON.parse(localStorage.getItem("object"));
-    if (objectsFromBasket == null)
+    // if ((objectsFromBasket == null) || ((objectsFromBasket != null) && (objectsFromBasket.length === 0)))
+    if ((objectsFromBasket == null) || (objectsFromBasket.length === 0))
     {
         let emptyBasket = document.createElement("h2");
         emptyBasket.innerHTML = "Votre panier est vide";
@@ -34,7 +34,6 @@ function showBasket()
             row.appendChild(firstColumn);
             productLink.appendChild(image);
             firstColumn.appendChild(productLink);
-
 
             let secondColumn = document.createElement("div");
             secondColumn.classList.add("col","position-relative");
@@ -201,3 +200,17 @@ submitButton.addEventListener('click', function()
     window.location = 'confirmation.html';
 });
 
+// Gestion de la suppression d'un article au panier
+let deleteArticle = document.getElementsByClassName("fa-times");
+let container = document.getElementsByClassName("container-fluid");
+console.log("number of croix : ", deleteArticle.length)
+for (let index = 0; index < deleteArticle.length; index++)
+{
+    deleteArticle[index].addEventListener("click", function(event)
+    {
+        let objectsFromBasket = JSON.parse(localStorage.getItem("object"));
+        objectsFromBasket.splice(index, 1); // Supprime un élément du tableau a partir de l'index "index"
+        localStorage.setItem("object", JSON.stringify(objectsFromBasket));
+        window.location = "panier.html";
+    })
+}
