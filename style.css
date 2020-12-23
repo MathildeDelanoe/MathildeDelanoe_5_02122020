@@ -107,6 +107,11 @@ td:last-child
     position: relative;
 }
 
+#formulaire label
+{
+    font-size:0.9em;
+}
+
 @media screen and (max-width: 1024px)
 {
     section img
@@ -116,8 +121,7 @@ td:last-child
 
     #panier_recap
     {
-        width:80%;
-
+        width:90%;
     }
     #panier_recap img
     {
@@ -125,6 +129,7 @@ td:last-child
         height:100px;
     }
 }
+
 
 /* -md */
 @media screen and (max-width: 991px)
@@ -141,10 +146,6 @@ td:last-child
     header ul
     {
         margin-top:10px;
-    }
-    .container-fluid
-    {
-        width:100%;
     }
     nav div ul li div
     {

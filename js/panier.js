@@ -22,7 +22,7 @@ function showBasket()
         for (let product of objectsFromBasket)
         {
             let row = document.createElement("div");
-            row.classList.add("row","border-bottom","border-secondary","align-items-center");
+            row.classList.add("row","border-bottom","border-secondary","align-items-center","px-2");
             let firstColumn = document.createElement("div");
             firstColumn.classList.add("col","text-center");
 
@@ -56,7 +56,7 @@ function showBasket()
             prices.push(productPrice);
             let deleteCross = document.createElement("i");
             deleteCross.classList.add("fa","fa-times","position-absolute");
-            deleteCross.setAttribute("style", "top:5px; right:20px;cursor:pointer");
+            deleteCross.setAttribute("style", "top:5px; right:0px;cursor:pointer");
             deleteCross.setAttribute("title","Supprimer l'article");
             row.appendChild(secondColumn);
             secondColumn.appendChild(name);
