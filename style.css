@@ -17,9 +17,15 @@ header, footer
     background-color:rgb(255,211,183);
 }
 
-header nav>a
+header nav span
 {
     font-family: scratchregular, Arial, sans-serif;
+    font-size:1.5em;
+}
+
+header nav i
+{
+    font-size:1.2em;
 }
     
 footer
