@@ -96,6 +96,10 @@ nav div ul li div p
     height:100px;
 }
 
+td:last-child
+{
+    position: relative;
+}
 
 @media screen and (max-width: 1024px)
 {

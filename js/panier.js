@@ -1,4 +1,5 @@
 let prices = [];
+let emptyFormParts = [false, false, false, false, false];
 
 //Fonction pour afficher le panier
 function showBasket()
@@ -102,28 +103,54 @@ function updateBasketWithQuantity(indexObject, newQuantity)
     }
 }
 
-function isValidData(data, errorMessage)
+function isValidData(data, errorMessage, index)
 {
     return new Promise(function(resolve, reject)
     {
         if(data.checkValidity())
         {
+            let divError = document.getElementById("errorMessage" + index.toString());
+            if (divError != null)
+            {
+                let input = document.querySelectorAll("#formulaire input");
+                input[index].setAttribute("style", "box-shadow:none");
+                let tdLastChild = document.querySelectorAll("td:last-child");
+                tdLastChild[index].removeChild(divError);
+            }
             resolve(true);
         }
         else
         {
+            // Ici la donnée n'est pas valide mais a pu être éditée au moins une fois ou 0
+            if (emptyFormParts[index])
+            {
+                // Ici la donnée a été éditée au moins une fois
+                let tdLastChild = document.querySelectorAll("td:last-child");
+                let input = document.querySelectorAll("#formulaire input");
+                input[index].setAttribute("style", "box-shadow:0 0 5px red");
+                let divError = document.getElementById("errorMessage" + index.toString());
+                if (divError === null) // Aucun message n'a déjà été créé
+                {
+                    let divError = document.createElement("div");
+                    divError.setAttribute("id", "errorMessage" + index.toString());
+                    let styleString = "position: absolute; color: red; bottom: 0px; left: 0px;";
+                    divError.setAttribute("style", styleString);
+                    divError.innerHTML = errorMessage;
+                    tdLastChild[index].appendChild(divError);
+                }
+            }
             reject(errorMessage);
         }
     });
 }
 
-function activateSubmitButton()
+function activateSubmitButton(formInputs)
 {
-    Promise.all([isValidData(firstNameInput, "Prénom incorrect"),
-                 isValidData(lastNameInput, "Nom incorrect"),
-                 isValidData(addressInput, "Adresse incorrecte"),
-                 isValidData(cityInput, "Ville incorrecte"),
-                 isValidData(emailInput, "Email incorrect")])
+    Promise.all([isValidData(formInputs[0], "Prénom incorrect", 0),
+                 isValidData(formInputs[1], "Nom incorrect", 1),
+                 isValidData(formInputs[2], "Adresse incorrecte", 2),
+                 isValidData(formInputs[3], "Ville incorrecte", 3),
+                 isValidData(formInputs[4], "Email incorrect", 4)])
     .then(function()
         {
             submitButton.disabled = false;
@@ -162,39 +189,28 @@ for (let index = 0; index < quantityButtons.length; index++)
 }
 
 // Formulaire
-let firstNameInput = document.getElementById("firstName");
-let lastNameInput = document.getElementById("lastName");
-let addressInput = document.getElementById("address");
-let cityInput = document.getElementById("city");
-let emailInput = document.getElementById("email");
-
-let submitButton = document.getElementById("submitButton");
-
-firstNameInput.addEventListener('change', function(){
-    activateSubmitButton()}
-    );
-lastNameInput.addEventListener('change', function(){
-    activateSubmitButton()}
-    );
-addressInput.addEventListener('change', function(){
-    activateSubmitButton()}
-    );
-cityInput.addEventListener('change', function(){
-    activateSubmitButton()}
-    );
-emailInput.addEventListener('change', function(){
-    activateSubmitButton()}
-    );
+let formInputs = document.querySelectorAll("#formulaire input");
+for (let index = 0; index < formInputs.length; index++) // Maybe length-1 to not consider the submit type
+{
+    formInputs[index].addEventListener('change', function(){
+        if (!emptyFormParts[index])
+        {
+            emptyFormParts[index] = true;
+        }
+        activateSubmitButton(formInputs);
+        });
+}
 
 // Gestion du clic sur le bouton "Envoyer"
+let submitButton = document.getElementById("submitButton");
 submitButton.addEventListener('click', function()
 {
     let contact = {
-        firstName : firstNameInput.value,
-        lastName : lastNameInput.value,
-        address : addressInput.value,
-        city : cityInput.value,
-        email : emailInput.value
+        firstName : formInputs[0].value,
+        lastName : formInputs[1].value,
+        address : formInputs[2].value,
+        city : formInputs[3].value,
+        email : formInputs[4].value
     };
     localStorage.setItem("personalData", JSON.stringify(contact));
     window.location = 'confirmation.html';
@@ -203,7 +219,6 @@ submitButton.addEventListener('click', function()
 // Gestion de la suppression d'un article au panier
 let deleteArticle = document.getElementsByClassName("fa-times");
 let container = document.getElementsByClassName("container-fluid");
-console.log("number of croix : ", deleteArticle.length)
 for (let index = 0; index < deleteArticle.length; index++)
 {
     deleteArticle[index].addEventListener("click", function(event)
