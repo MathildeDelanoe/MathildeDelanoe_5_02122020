@@ -110,12 +110,22 @@ function isValidData(data, errorMessage, index)
         if(data.checkValidity())
         {
             let divError = document.getElementById("errorMessage" + index.toString());
+            let tdLastChild = document.querySelectorAll("td:last-child");
             if (divError != null)
             {
                 let input = document.querySelectorAll("#formulaire input");
                 input[index].setAttribute("style", "box-shadow:none");
-                let tdLastChild = document.querySelectorAll("td:last-child");
                 tdLastChild[index].removeChild(divError);
+            }
+            let checkIcon = document.getElementById("check" + index.toString());
+            if (checkIcon == null) // Aucune coche de validité n'a déjà été créé
+            {
+                let checkIcon = document.createElement("i");
+                checkIcon.classList.add("fas", "fa-check", "position-absolute");
+                checkIcon.setAttribute("style", "color: green; top: 50%; right: -20px; transform:translateY(-50%)");
+                checkIcon.setAttribute("id", "check" + index);
+                console.log("creation of check" + index)
+                tdLastChild[index].appendChild(checkIcon);
             }
             resolve(true);
         }
@@ -138,6 +148,11 @@ function isValidData(data, errorMessage, index)
                     divError.innerHTML = errorMessage;
                     tdLastChild[index].appendChild(divError);
                 }
+                // Suppression de la coche verte
+                let checkIcons = document.getElementById("check" + index.toString());
+                console.log(checkIcons)
+                console.log(tdLastChild[index])
+                tdLastChild[index].removeChild(checkIcons);
             }
             reject(errorMessage);
         }
