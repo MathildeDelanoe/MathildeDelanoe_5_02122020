@@ -7,6 +7,7 @@
             url('font/web fonts/scratch_regular_macroman/Scratch_-webfont.svg#scratchregular') format('svg');
 }
 
+/* Gestion des couleurs de fonds d'écran */
 body
 {
     background-color: rgb(255,232,217);
@@ -14,51 +15,27 @@ body
 
 header, footer
 {
-    background-color:rgb(255,211,183);
+    background-color: rgb(255,211,183);
 }
 
-header nav span
+/* Barre de navigation */
+nav span
 {
     font-family: scratchregular, Arial, sans-serif;
-    font-size:1.5em;
+    font-size: 1.5em;
 }
 
-header nav i
+nav i
 {
-    font-size:1.2em;
-}
-    
-footer
-{
-    min-height: 50px;
+    font-size: 1.2em;
 }
 
-section img
-{
-    border: 1px solid rgb(216, 216, 216);
-    height: 350px;
-}
-
-.card
-{
-    box-shadow:10px 5px 5px grey;
-}
-
-#catalogue .container-fluid
-{
-    width:80%;
-}
-
-#ficheProduit .container-fluid
-{
-    width: 30%;
-}
-
-nav div ul li:last-child
+nav li:last-child
 {
     position: relative;
 }
-nav div ul li div
+
+nav li div
 {
     background-color: rgb(255,232,217);
     position: absolute;
@@ -68,38 +45,63 @@ nav div ul li div
     margin: 0px;
     padding: 0px;
 }
-nav div ul li div p
+
+nav li p
 {
     margin: 0px;
     padding: 0px;
     font-size: small;
 }
 
-/* Gestion de la question apres ajout au panier*/
-#apresPanier
+/* Paramètre des images */
+section img
+{
+    border: 1px solid rgb(216, 216, 216);
+    height: 350px;
+}
+
+/* Paramètre des cartes des produits */
+.card
+{
+    box-shadow: 10px 5px 5px grey;
+}
+
+/* Taille du conteneur de la page index.html */
+#catalogue .container-fluid
+{
+    width: 80%;
+}
+
+/* Taille du conteneur de la page produit.html */
+#productSheet .container-fluid
+{
+    width: 30%;
+}
+
+/* Paramètre de la div contenant la question apparaissant après un ajout au panier */
+#choiceBox
 {
     position: absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
     border: 1px solid grey;
     background-color: white;
-    border-radius:5px;
+    border-radius: 5px;
     padding: 10px;
     opacity: 0;
 }
 
-/*pour panier.html*/
-#panier_recap
+/* Configuration de la page panier.html*/
+#basketSummary
 {
-    width:30%;
-
+    width: 30%;
 }
 
-#panier_recap img
+#basketSummary img
 {
-    width:100px;
-    height:100px;
+    width: 100px;
+    height: 100px;
 }
 
 td:last-child
@@ -107,11 +109,12 @@ td:last-child
     position: relative;
 }
 
-#formulaire label
+#validationForm label
 {
     font-size:0.9em;
 }
 
+/* Gestion de la responsivité */
 @media screen and (max-width: 1024px)
 {
     section img
@@ -119,22 +122,20 @@ td:last-child
         height: 55vw;
     }
 
-    #panier_recap
+    #basketSummary
     {
         width:90%;
     }
-    #panier_recap img
+    #basketSummary img
     {
         width:100px;
         height:100px;
     }
 }
 
-
-/* -md */
 @media screen and (max-width: 991px)
 {
-    #ficheProduit .container-fluid
+    #productSheet .container-fluid
     {
         width: 80%;
     }
@@ -153,7 +154,6 @@ td:last-child
         left: 50px;
     }
 }
-
 
 @media screen and (min-width:1024px) and (max-width:1281px)
 {

@@ -38,9 +38,9 @@
 
     <section>
         <h1 class="text-center py-5">Détail de votre panier</h1>
-        <div id="panier_recap" class="container-fluid">
+        <div id="basketSummary" class="container-fluid">
         </div>
-        <div id="formulaire" class="container-fluid">
+        <div id="validationForm" class="container-fluid">
             <h2 class="text-center mt-5">Pour finaliser votre commande, merci de remplir les champs suivants : </h2>    
             <table class="my-4 mx-auto">
                 <tbody class="text-right">
@@ -54,11 +54,11 @@
                     </tr>
                     <tr>
                         <td><label for="address" class="my-4 mr-3">Adresse : </label></td>
-                        <td><input type="text" id="address" pattern="[0-9A-Za-zÀ-ÖØ-öø-ÿ- ]{10,50}" required></td>
+                        <td><input type="text" id="address" pattern="[0-9A-Za-zÀ-ÖØ-öø-ÿ- ]{10,50}[A-Za-zÀ-ÖØ-öø-ÿ]" required></td>
                     </tr>
                     <tr>
                         <td><label for="city" class="my-4 mr-3">Ville : </label></td>
-                        <td><input type="text" id="city" pattern="[A-Za-zÀ-ÖØ-öø-ÿ- ]{2,50}" required></td>
+                        <td><input type="text" id="city" pattern="[A-Za-zÀ-ÖØ-öø-ÿ- ]{2,50}[A-Za-zÀ-ÖØ-öø-ÿ]" required></td>
                     </tr>
                     <tr>
                         <td><label for="email" class="my-4 mr-3">Adresse e-mail : </label></td>

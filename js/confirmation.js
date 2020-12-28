@@ -1,14 +1,21 @@
 // Affiche un récapitulatif du panier
-function printBasketSummary(response)
+function printBasketSummary()
 {
+    // Création d'une section 
     let section = document.getElementsByTagName("section");
+
+    // Création d'un tableau pour le récapitulatif de la commande
     let table = document.createElement("table");
     table.setAttribute("style", "width:40%");
     table.classList.add("mx-auto","mb-5");
+
+    // Création de l'élément "caption" pour créer le titre du tableau
     let title = document.createElement("caption");
     title.innerHTML = "Récapitulatif : ";
     title.setAttribute("style", "caption-side:top; font-size:1.5em");
     title.classList.add("text-dark","font-weight-bold");
+
+    // Création de l'en-tête du tableau
     let thead = document.createElement("thead");
     let lineTitle = document.createElement("tr");
     let nameHeader = document.createElement("th");
@@ -23,6 +30,8 @@ function printBasketSummary(response)
     let priceHeader = document.createElement("th");
     priceHeader.innerHTML = "Prix";
     priceHeader.classList.add("border","border-dark","text-center");
+
+    // Création du pied du tableau
     let tfoot = document.createElement("tfoot");
     let totalPriceLine = document.createElement("tr");
     let totalPriceDescription = document.createElement("th");
@@ -36,6 +45,8 @@ function printBasketSummary(response)
     let amounts = [];
 
     let objectsFromBasket = JSON.parse(localStorage.getItem("object"));
+
+    // Création et affichage de chaque article du panier
     for (let product of objectsFromBasket)
     {
         let line = document.createElement("tr");
@@ -54,6 +65,7 @@ function printBasketSummary(response)
         colPrice.innerHTML = priceToEuros(productPrice);
         amounts.push(productPrice);
 
+        // Insertion dans le DOM
         tbody.appendChild(line);
         line.appendChild(colName);
         line.appendChild(colColor);
@@ -64,7 +76,6 @@ function printBasketSummary(response)
     totalPriceAmount.innerHTML = priceToEuros(calculateTotalAmount(amounts));
 
     // Construction de la table
-
     section[0].appendChild(table);
     table.appendChild(title);
     table.appendChild(thead);
@@ -80,49 +91,57 @@ function printBasketSummary(response)
     table.appendChild(tbody);
 }
 
+/* Affiche un résumé du panier ainsi que le message de confirmation
+   Paramètres:
+        - response : Réponse provenant de la requête post
+*/
 function fillConfirmationMessage(response)
 {
-    printBasketSummary(response);
+    // Appel de la fonction qui affiche le récapitulatif du panier
+    printBasketSummary();
+
+    let section = document.getElementsByTagName("section");
     let commandNumberTitle = document.createElement("h2");
     commandNumberTitle.classList.add("text-center","pb-3");
-    commandNumberTitle.innerHTML = "Votre commande est validée sous la référence n° " + response.orderId+ ".";
-    let section = document.getElementsByTagName("section");
-
+    commandNumberTitle.innerHTML = "Votre commande est validée sous la référence n° " + response.orderId + ".";
     section[0].appendChild(commandNumberTitle);
+
     let finalWord = document.createElement("h3");
     finalWord.classList.add("text-center","font-weight-bold","my-5");
     finalWord.innerHTML = "Merci pour votre commande.";
-
     section[0].appendChild(finalWord);
 
     // Suppression du panier via nettoyage du localStorage
     localStorage.clear();
-    printBasketInfo(); // Besoin pour mettre a jour la valeur du panier en haut a droite
+    printBasketQuantity(); // Besoin pour mettre à jour la valeur du panier en haut à droite
 }
 
-// Appel de la fonction qui place un cercle au dessus du panier avec le nombre d'éléments a l'ouverture de la page
-printBasketInfo();
+// Appel de la fonction qui place un cercle au dessus du panier avec le nombre d'éléments
+printBasketQuantity();
 
-// Recuperation des donnees du local storage pour la requete post
+// Création des éléments de la requête post
 let contact = {};
 let products = [];
 
+// Récupération des produits du panier
 let objectsFromBasket = JSON.parse(localStorage.getItem("object"));
 for (let product of objectsFromBasket)
 {
+    // Remplissage du tableau d'id des produits
     products.push(product.id);
 }
+// Récupération des informations de contact renseignées dans le formulaire précédemment rempli
 contact = JSON.parse(localStorage.getItem("personalData"));
 
-// Lancement de la requete post avec fetch
+// Initialisation des options de la méthode fetch
 let options = 
 {
     method: 'post',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({contact, products})
+    body: JSON.stringify({contact, products}) // Remplissage du body de la requête avec les informations nécessaires
 };
 
-// Envoi de la requete post au serveur
+// Envoi de la requête post au serveur
 fetchApi("http://localhost:3000/api/teddies/order/", options, fillConfirmationMessage);
