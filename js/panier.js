@@ -140,15 +140,24 @@ function isValidData(data, errorMessage, index)
         {
             // La donnée est correcte
             let divError = document.getElementById("errorMessage" + index.toString());
-            if (divError != null) // S'il existe un message d'erreur pour le champ en question
+            let tdLastChild = document.querySelectorAll("td:last-child");
+            if (divError != null)
             {
                 // Récupération de tous les inputs du formulaire
                 let input = document.querySelectorAll("#validationForm input");
                 // Lorsqu'il n'y a plus d'erreur, suppression de l'ombre autour de l'input
                 input[index].setAttribute("style", "box-shadow:none");
-                // Lorsqu'il n'y a plus d'erreur, suppression du message d'erreur
-                let tdLastChild = document.querySelectorAll("td:last-child");
                 tdLastChild[index].removeChild(divError);
+            }
+            let checkIcon = document.getElementById("check" + index.toString());
+            if (checkIcon == null) // Aucune coche de validité n'a déjà été créé
+            {
+                let checkIcon = document.createElement("i");
+                checkIcon.classList.add("fas", "fa-check", "position-absolute");
+                checkIcon.setAttribute("style", "color: green; top: 50%; right: -20px; transform:translateY(-50%)");
+                checkIcon.setAttribute("id", "check" + index);
+                console.log("creation of check" + index)
+                tdLastChild[index].appendChild(checkIcon);
             }
             resolve(true);
         }
@@ -175,6 +184,11 @@ function isValidData(data, errorMessage, index)
                     divError.innerHTML = errorMessage;
                     tdLastChild[index].appendChild(divError);
                 }
+                // Suppression de la coche verte
+                let checkIcons = document.getElementById("check" + index.toString());
+                console.log(checkIcons)
+                console.log(tdLastChild[index])
+                tdLastChild[index].removeChild(checkIcons);
             }
             reject(false);
         }
