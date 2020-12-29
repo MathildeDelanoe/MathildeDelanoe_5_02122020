@@ -150,13 +150,12 @@ function isValidData(data, errorMessage, index)
                 tdLastChild[index].removeChild(divError);
             }
             let checkIcon = document.getElementById("check" + index.toString());
-            if (checkIcon == null) // Aucune coche de validité n'a déjà été créé
+            if (checkIcon == null) // Aucune coche de validité n'est présente
             {
                 let checkIcon = document.createElement("i");
                 checkIcon.classList.add("fas", "fa-check", "position-absolute");
                 checkIcon.setAttribute("style", "color: green; top: 50%; right: -20px; transform:translateY(-50%)");
                 checkIcon.setAttribute("id", "check" + index);
-                console.log("creation of check" + index)
                 tdLastChild[index].appendChild(checkIcon);
             }
             resolve(true);
@@ -174,7 +173,7 @@ function isValidData(data, errorMessage, index)
                 input[index].setAttribute("style", "box-shadow:0 0 5px red");
                 // Gestion de l'affichage du message d'erreur
                 let divError = document.getElementById("errorMessage" + index.toString());
-                if (divError === null) // Aucun message n'a déjà été créé
+                if (divError === null) // Aucun message n'est présent
                 {
                     // Cette condition permet de ne pas écrire et superposer plusieurs fois le même message
                     let divError = document.createElement("div");
@@ -185,10 +184,11 @@ function isValidData(data, errorMessage, index)
                     tdLastChild[index].appendChild(divError);
                 }
                 // Suppression de la coche verte
-                let checkIcons = document.getElementById("check" + index.toString());
-                console.log(checkIcons)
-                console.log(tdLastChild[index])
-                tdLastChild[index].removeChild(checkIcons);
+                let checkIcon = document.getElementById("check" + index.toString());
+                if (checkIcon != null) // Une coche de validité est présente
+                {
+                    tdLastChild[index].removeChild(checkIcon);
+                }
             }
             reject(false);
         }
