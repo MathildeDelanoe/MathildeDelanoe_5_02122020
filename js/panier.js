@@ -216,82 +216,107 @@ function activateSubmitButton(formInputs)
         });
 }
 
+// Fonction qui gère le changement de la quantité de produits et met à jour le prix
+function manageProductQuantity()
+{
+    let quantityButtons = document.querySelectorAll("#basketSummary input");
+    for (let index = 0; index < quantityButtons.length; index++)
+    {
+        quantityButtons[index].addEventListener("change", function(event)
+        {
+            // Récupération des produits du panier
+            let objectsFromBasket = JSON.parse(localStorage.getItem("object"));
+            // Sélection de l'objet dont la quantité a changé
+            let object = objectsFromBasket[index];
+            // Changement du prix du produit
+            let newPrice = (object.price * Number(event.target.value)); // Calcul du nouveau prix
+            let currentPrice = document.querySelectorAll("p.price");
+            currentPrice[index].innerHTML = priceToEuros(newPrice);
+            // Changement du prix total de la commande
+            prices[index] = newPrice;
+            let totalPrice = document.getElementsByClassName("totalPrice");
+            totalPrice[0].innerHTML = priceToEuros(calculateTotalAmount(prices));
+            // Mise à jour de la quantité dans le local storage
+            object.quantity = Number(event.target.value);
+            localStorage.setItem("object", JSON.stringify(objectsFromBasket));
+            printBasketQuantity(); // Remise à jour de la quantité du panier
+        });
+    }    
+}
+
+// Fonction qui gère la suppression d'un article au panier
+function manageProductSuppression()
+{
+    let deleteArticle = document.getElementsByClassName("fa-times");
+    for (let index = 0; index < deleteArticle.length; index++)
+    {
+        deleteArticle[index].addEventListener("click", function()
+        {
+            // Récupération des produits du panier
+            let objectsFromBasket = JSON.parse(localStorage.getItem("object"));
+            // Supprime un élément du tableau a partir de l'index "index"
+            objectsFromBasket.splice(index, 1);
+            localStorage.setItem("object", JSON.stringify(objectsFromBasket));
+            // Réactualisation de la page pour mettre à jour le panier
+            window.location = "panier.html";
+        });
+    }
+}
+
+// Fonction qui gère la validité du formulaire
+function manageFormValidity()
+{
+    let formInputs = document.querySelectorAll("#validationForm input");
+    for (let index = 0; index < (formInputs.length - 1); index++)
+    {
+        formInputs[index].addEventListener('change', function()
+        {
+            /* Condition qui vérifie si le champ a déjà été renseigné pour ne pas afficher 
+            les messages d'erreur des autres champs */
+            if (!emptyFormParts[index])
+            {
+                emptyFormParts[index] = true;
+            }
+            activateSubmitButton(formInputs);
+        });
+    }
+}
+
+// Fonction qui gère le clic sur le bouton "Envoyer"
+function manageFormSubmit()
+{
+    let submitButton = document.getElementById("submitButton");
+    submitButton.addEventListener('click', function()
+    {
+        // Création de l'objet JS de contact avec les informations nécessaires
+        let contact = {
+            firstName : formInputs[0].value,
+            lastName : formInputs[1].value,
+            address : formInputs[2].value,
+            city : formInputs[3].value,
+            email : formInputs[4].value
+        };
+        // Enregistrement de l'objet dans le LS
+        localStorage.setItem("personalData", JSON.stringify(contact));
+        // Ouverture de la page confirmation
+        window.location = 'confirmation.html';
+    });
+}
+
 // Appel de la fonction qui place un cercle au dessus du panier avec le nombre d'éléments
 printBasketQuantity();
 
 // Appel la fonction qui affiche le panier
 showBasket();
 
-// Gestion de la quantité de produits et mise à jour du prix
-let quantityButtons = document.querySelectorAll("#basketSummary input");
-for (let index = 0; index < quantityButtons.length; index++)
-{
-    quantityButtons[index].addEventListener("change", function(event)
-    {
-        // Récupération des produits du panier
-        let objectsFromBasket = JSON.parse(localStorage.getItem("object"));
-        // Sélection de l'objet dont la quantité a changé
-        let object = objectsFromBasket[index];
-        // Changement du prix du produit
-        let newPrice = (object.price * Number(event.target.value)); // Calcul du nouveau prix
-        let currentPrice = document.querySelectorAll("p.price");
-        currentPrice[index].innerHTML = priceToEuros(newPrice);
-        // Changement du prix total de la commande
-        prices[index] = newPrice;
-        let totalPrice = document.getElementsByClassName("totalPrice");
-        totalPrice[0].innerHTML = priceToEuros(calculateTotalAmount(prices));
-        // Mise à jour de la quantité dans le local storage
-        object.quantity = Number(event.target.value);
-        localStorage.setItem("object", JSON.stringify(objectsFromBasket));
-        printBasketQuantity(); // Remise à jour de la quantité du panier
-    })
-}
+// Appel la fonction qui gère le changement de la quantité de produits
+manageProductQuantity();
 
-// Gestion de la suppression d'un article au panier
-let deleteArticle = document.getElementsByClassName("fa-times");
-for (let index = 0; index < deleteArticle.length; index++)
-{
-    deleteArticle[index].addEventListener("click", function()
-    {
-        // Récupération des produits du panier
-        let objectsFromBasket = JSON.parse(localStorage.getItem("object"));
-        // Supprime un élément du tableau a partir de l'index "index"
-        objectsFromBasket.splice(index, 1);
-        localStorage.setItem("object", JSON.stringify(objectsFromBasket));
-        // Réactualisation de la page pour mettre à jour le panier
-        window.location = "panier.html";
-    })
-}
+// Appel la fonction qui gère la suppression d'un article au panier
+manageProductSuppression();
 
-// Formulaire
-let formInputs = document.querySelectorAll("#validationForm input");
-for (let index = 0; index < (formInputs.length - 1); index++)
-{
-    formInputs[index].addEventListener('change', function(){
-        /* Condition qui vérifie si le champ a déjà été renseigné pour ne pas afficher 
-         les messages d'erreur des autres champs */
-        if (!emptyFormParts[index])
-        {
-            emptyFormParts[index] = true;
-        }
-        activateSubmitButton(formInputs);
-        });
-}
+// Appel la fonction qui gère la validité du formulaire
+manageFormValidity();
 
-// Gestion du clic sur le bouton "Envoyer"
-let submitButton = document.getElementById("submitButton");
-submitButton.addEventListener('click', function()
-{
-    // Création de l'objet JS de contact avec les informations nécessaires
-    let contact = {
-        firstName : formInputs[0].value,
-        lastName : formInputs[1].value,
-        address : formInputs[2].value,
-        city : formInputs[3].value,
-        email : formInputs[4].value
-    };
-    // Enregistrement de l'objet dans le LS
-    localStorage.setItem("personalData", JSON.stringify(contact));
-    // Ouverture de la page confirmation
-    window.location = 'confirmation.html';
-});
+// Appel la fonction qui gère le clic sur le bouton "Envoyer"
+manageFormSubmit();

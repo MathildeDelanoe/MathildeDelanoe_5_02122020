@@ -92,6 +92,46 @@ function printChoice()
     question.setAttribute("style", "opacity:1"); // Rendre visible la question
 }
 
+// Fonction qui permet d'écouter le clic sur le bouton d'ajout au panier
+function manageBasketAdd()
+{
+    let personalisation = document.getElementById("colorSelection");
+    const btn = document.querySelector("div.card-body button");
+    btn.addEventListener("click", function()
+    {
+        // Vérification d'une saisie de la personnalisation
+        if (personalisation.value === "")
+        {
+            alert("Personnalisation non selectionnée");
+        }
+        else
+        {
+            addToBasket(); // Ajoute le produit au panier
+            printBasketQuantity(); // Remet à jour la quantité dans le panier en haut à droite
+            window.location.href = '#header';
+            printChoice(); // Affichage de la question sur la suite des achats
+        }
+    });
+}
+
+// Fonction qui permet d'écouter le clic du bouton de retour vers le catalogue
+function manageContinueShopping()
+{
+    let continueShopping = document.getElementById("continueShopping");
+    continueShopping.addEventListener('click', function() {
+        window.location = 'index.html'; // Au clic, la page index.html s'ouvre
+    });
+}
+
+// Fonction qui permet d'écouter le clic du bouton de direction vers le panier
+function manageSeeBasket()
+{
+    let seeBasket = document.getElementById("seeBasket");
+    seeBasket.addEventListener('click', function() {
+        window.location = 'panier.html'; // Au clic, la page panier.html s'ouvre
+    });
+}
+
 
 // Appel de la fonction qui place un cercle au dessus du panier avec le nombre d'éléments
 printBasketQuantity();
@@ -99,35 +139,14 @@ printBasketQuantity();
 // Envoi de la requete get au serveur
 fetchApi("http://localhost:3000/api/teddies/" + getIdFromUrl(), [], fillProductSheet);
 
+// Appel la fonction pour écouter les événements du bouton d'ajout au panier
+manageBasketAdd();
 
-// Ecoute du clic sur le bouton d'ajout au panier
-let personalisation = document.getElementById("colorSelection");
-const btn = document.querySelector("div.card-body button");
-btn.addEventListener("click", function()
-{
-    // Vérification d'une saisie de la personnalisation
-    if (personalisation.value === "")
-    {
-        alert("Personnalisation non selectionnée");
-    }
-    else
-    {
-        addToBasket(); // Ajoute le produit au panier
-        printBasketQuantity(); // Remet à jour la quantité dans le panier en haut à droite
-        window.location.href = '#header';
-        printChoice(); // Affichage de la question sur la suite des achats
-    }
-}
-);
+// Appel la fonction pour écouter les événements sur le retour vers le catalogue
+manageContinueShopping();
 
-// Ecouter le bouton de retour vers le catalogue
-let continueShopping = document.getElementById("continueShopping");
-continueShopping.addEventListener('click', function() {
-    window.location = 'index.html'; // Au clic, la page index.html s'ouvre
-});
+// Appel la fonction pour écouter les événements sur la redirection vers le panier
+manageSeeBasket();
 
-// Ecouter le bouton de direction vers le panier
-let visionPanier = document.getElementById("seeBasket");
-visionPanier.addEventListener('click', function() {
-    window.location = 'panier.html'; // Au clic, la page panier.html s'ouvre
-});
+
+
