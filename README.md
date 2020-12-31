@@ -3,13 +3,13 @@
 ## Pré-requis ##
 
 Il faut avoir récupérer le repo disponible ici https://github.com/OpenClassrooms-Student-Center/JWDP5.git
-Suivez les indications du readme.md propre à ce repo pour pouvoir accéder au serveur
+Suivez les indications du readme.md propre à ce repo pour pouvoir accéder au serveur. Une fois le serveur lancé, vous pouvez ouvrir le fichier index.html de ce repo et naviguer à travers le site.
 
 ## Fonctionnalités de base ##
 Cette partie décrit les fonctionnalités de base du site de e-commerce telles qu'énoncées dans le cahier des charges.
 
 ### Page principale ###
-La page principale présente le catalogue de notre site Oriteddy. Le contenu du catalogue est déterminé par le backend.
+La page principale présente le catalogue de notre site Oriteddy. Le contenu du catalogue est déterminé par le backend.  
 ![catalogue](/img/presentationCatalogue.jpg)
 Chaque élement du catalogue est cliquable dans son ensemble et permet de rediriger l'utilisateur vers la page du produit correspondant. Pour cela, nous utilisons la possibilité de passer des paramètres dans l'url d'une page web.
 
@@ -42,13 +42,17 @@ Lors de l'ajout au panier d'un produit, l'utilisateur se voit demander ce qu'il 
 * consulter son panier
 
 ### Suppression d'un élément du panier ###
-L'utilisateur peut supprimer des éléments de son panier en cliquant sur la croix qui est situé à droite de l'élément en question dans le panier.
+L'utilisateur peut supprimer des éléments de son panier en cliquant sur la croix qui est situé à droite de l'élément en question dans le panier.  
 ![Suppression panier](/img/suppressionElementPanier.jpg)
 
 ### Sélection du nombre de produits ###
-Lorsque l'utilisateur ajoute un produit à son panier, ce dernier n'est ajouté qu'en un seul exemplaire. Lorsque l'utilisateur consulte son panier, il a la possibilité d'augmenter la quantité de son produit. Il peut ainsi augmenter, ou diminuer, la quantité d'un produit. Cette action met à jour automatiquement, les prix intermédiaires et le prix total du panier
+Lorsque l'utilisateur ajoute un produit à son panier, ce dernier n'est ajouté qu'en un seul exemplaire. Lorsque l'utilisateur consulte son panier, il a la possibilité d'augmenter la quantité de son produit. Il peut ainsi augmenter, ou diminuer, la quantité d'un produit. Cette action met à jour automatiquement, les prix intermédiaires et le prix total du panier.  
 ![gestion quantité par produit](/img/quantitePanierEtChangementPrix.jpg)
 
 ### Retour vers la description du produit ###
-Au sein du panier, l'utilisateur a la possibilité de retourner à la description du produit en cliquant sur son image.
+Au sein du panier, l'utilisateur a la possibilité de retourner à la description du produit en cliquant sur son image.  
 ![retour vers la page produit](/img/retourProduit.jpg)
+
+### Indication de validité du formulaire ###
+Lors de la saisie des différents champs du formulaire, l'utilisateur est averti de la validité des champs par des indicateurs. Lorsque le champ est incorrect, un cadre rouge entoure le champ et un message d'erreur apparaît sous le champ en question. En cas de champ valide, une petite coche verte est affichée à côté du champ.  
+![indication formulaire](/img/formulaire.jpg)
