@@ -285,6 +285,7 @@ function manageFormValidity()
 // Fonction qui gère le clic sur le bouton "Envoyer"
 function manageFormSubmit()
 {
+    let formInputs = document.querySelectorAll("#validationForm input");
     let submitButton = document.getElementById("submitButton");
     submitButton.addEventListener('click', function()
     {
